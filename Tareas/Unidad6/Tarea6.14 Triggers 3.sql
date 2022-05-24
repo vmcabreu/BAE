@@ -16,7 +16,7 @@ ALTER TABLE ControlTrigger ADD chec varchar(15);
 
 
 
-DROP TRIGGER ControlBDError;
+DROP TRIGGER IF EXISTS ControlBDError;
 
 DELIMITER //
 CREATE TRIGGER ControlBDError AFTER INSERT ON Emp
@@ -44,7 +44,7 @@ INSERT INTO Dept(Dept_No,DNombre,Loc) VALUES(10.5,'CONTABILIDAD','ELCHE');
 -- 8) Crear un trigger que guarde los datos en la tabla controltrigger cuando se realice la baja de un empleado.
 
 
-DROP TRIGGER ControlTriggerBaja;
+DROP TRIGGER IF EXISTS ControlTriggerBaja;
 
 DELIMITER //
 CREATE TRIGGER ControlTriggerBaja BEFORE DELETE ON Emp
@@ -60,7 +60,7 @@ SELECT * FROM ControlTrigger;
 
 ALTER TABLE ControlTrigger ADD Hora TIME;
 
-DROP TRIGGER ControlTriggerUpdate;
+DROP TRIGGER IF EXISTS ControlTriggerUpdate;
 
 DELIMITER //
 CREATE TRIGGER ControlTriggerUpdate AFTER UPDATE ON Emp
