@@ -1,0 +1,5 @@
+//Exportar una BBDD
+mysqldump -> username -> database_name -> data-dump.sql
+
+//Importar una BBDD
+mysql -> username -> new_database -> data_dump.sql
