@@ -32,6 +32,8 @@
     SELECT NUMERO, SUM (PRECIOPORTUNIDAD*CANTIDAD) AS TOTAL FROM
     FACTURAS GROUP BY NUMERO);
     
+    ALTER TABLE MONTOFACTURAS ADD CONSTRAINT PK_MONTOFACTURAS PRIMARY KEY (NUMERO);
+    
  --6-Realice una consulta de la tabla `facturas`, agrupando por `numero`, en la cual aparezca el número de factura y el monto total de todos sus items.
     SELECT NUMERO, SUM(PRECIOPORTUNIDAD*CANTIDAD) AS TOTAL FROM FACTURAS GROUP BY NUMERO;
 
