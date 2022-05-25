@@ -28,11 +28,11 @@ DELIMITER //
 CREATE TRIGGER update_Hospital AFTER UPDATE ON Hospital
 FOR EACH ROW
 BEGIN
-UPDATE Plantilla SET Hospital_Cod=new.Hospital_Cod WHERE Plantilla.Hospital_Cod=old.Hospital_Cod;
+UPDATE Plantilla SET Plantilla.Hospital_Cod=new.Hospital_Cod WHERE Plantilla.Hospital_Cod=old.Hospital_Cod;
 
-UPDATE Doctor SET Hospital_Cod=new.Hospital_Cod WHERE Doctor.Hospital_Cod=old.Hospital_Cod;
+UPDATE Doctor SET Doctor.Hospital_Cod=new.Hospital_Cod WHERE Doctor.Hospital_Cod=old.Hospital_Cod;
 
-UPDATE Sala SET Hospital_Cod=new.Hospital_Cod WHERE Sala.Hospital_Cod=old.Hospital_Cod;
+UPDATE Sala SET Sala.Hospital_Cod=new.Hospital_Cod WHERE Sala.Hospital_Cod=old.Hospital_Cod;
 END //
 DELIMITER ;
 
