@@ -30,17 +30,19 @@ CALL cadena_inversa('Hola',@inversa);
 
 --3) Escribir una función que reciba una fecha y devuelva el año, en número, correspondiente a esa fecha.
 
+DROP FUNCTION IF EXISTS devuelve_año;
+
 DELIMITER //
-CREATE PROCEDURE devuelve_año(
-  IN fecha DATE,
-  OUT anio INT)
+CREATE FUNCTION devuelve_año(
+  fecha DATE)
+  RETURNS INT
+  DETERMINISTIC
 BEGIN
-  SET anio=YEAR(fecha);
-  SELECT anio AS Año;
+  RETURN YEAR(fecha);
 END //
 DELIMITER ;
 
-CALL devuelve_año("2017-06-15",@year);
+SELECT devuelve_año("2017-06-15");
 
 --4) Escribir un bloque PL/SQL que haga uso de la función anterior.
 
@@ -61,8 +63,7 @@ BEGIN
   SET sueldototal=@resultado;
   CALL cadena_inversa(nombre,@inversa);
   SET inverso=@inversa;
-  CALL devuelve_año(fechanac,@year);
-  SET year=@year;
+  SELECT devuelve_año(fechanac) INTO year;
   SELECT sueldototal,inverso,year;
 END //
 DELIMITER ;
