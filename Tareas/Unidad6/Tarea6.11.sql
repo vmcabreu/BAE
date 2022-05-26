@@ -27,42 +27,44 @@ CALL ejemplo('Marta','1990-06-15',1500,500,@inverso,@year,@sueldototal);
 
 -- 2) Desarrollar una función que devuelva el número de años completos que hay entre dos fechas que se pasan como argumentos.
 
-DROP PROCEDURE años_entre_fechas;
+DROP FUNCTION IF EXISTS años_entre_fechas;
 
 DELIMITER //
-CREATE PROCEDURE años_entre_fechas(
-  IN fecha1 DATE,
-  IN fecha2 DATE,
-  OUT años INT)
+CREATE FUNCTION años_entre_fechas(
+  fecha1 DATE,
+  fecha2 DATE)
+  RETURNS INT
+  DETERMINISTIC
 BEGIN
   if YEAR(fecha1)<YEAR(fecha2) then
-      SET años=YEAR(fecha2)-YEAR(fecha1);
+      RETURN YEAR(fecha2)-YEAR(fecha1);
   else
-      SET años=YEAR(fecha1)-YEAR(fecha2);
+      RETURN YEAR(fecha1)-YEAR(fecha2);
     end if;
-    SELECT años;
 END //
 DELIMITER ;
 
-CALL años_entre_fechas('1996-07-01','2006-07-01',@años);
+SELECT años_entre_fechas('1996-07-01','2006-07-01');
 
 
 -- 3) Escribir una función que, haciendo uso de la función anterior devuelva los trienios que hay entre dos fechas. (Un trienio son tres años completos).
 
 
-DROP PROCEDURE trienios_entre_fechas;
+DROP FUNCTION trienios_entre_fechas;
 
 DELIMITER //
-CREATE PROCEDURE trienios_entre_fechas(
-  IN fecha1 DATE,
-  IN fecha2 DATE,
-  OUT trienios INT)
+CREATE FUNCTION trienios_entre_fechas(
+  fecha1 DATE,
+  fecha2 DATE)
+  RETURNS INT
+  DETERMINISTIC
 BEGIN
   DECLARE num INT;
-  CALL años_entre_fechas('1996-07-01','2006-07-01',num);
+  DECLARE trienios INT;
+  SELECT años_entre_fechas(fecha1,fecha2) INTO num;
   SET trienios=num/3;
-  SELECT trienios;
+  RETURN trienios;
 END //
 DELIMITER ;
                 
-CALL trienios_entre_fechas('1996-07-01','2006-07-01',@años);
+SELECT trienios_entre_fechas('1996-07-01','2006-07-01');
