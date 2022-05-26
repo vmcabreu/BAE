@@ -18,17 +18,19 @@ DELIMITER ;
 
 -- 2) Escribir una función que devuelva solamente caracteres alfabéticos sustituyendo cualquier otro carácter por blancos a partir de una cadena que se pasará en la llamada.
 
-DROP PROCEDURE alfabetico;
+DROP FUNCTION IF EXISTS alfabetico;
 
 DELIMITER //
-CREATE PROCEDURE alfabetico(
-  IN cadena VARCHAR(20),
-  OUT caracteres VARCHAR(20))
+CREATE FUNCTION alfabetico(
+  cadena VARCHAR(100))
+  RETURNS VARCHAR(100)
+  DETERMINISTIC
   BEGIN
   DECLARE pos INT;
   DECLARE size INT;
   DECLARE cod_Ascii INT;
   DECLARE charEnPos CHAR;
+  DECLARE caracteres VARCHAR(100);
   SET caracteres='';
   SET size=CHAR_LENGTH(cadena);
   SET pos=0;
@@ -43,11 +45,11 @@ CREATE PROCEDURE alfabetico(
     SET pos=pos+1;
   END IF;
   END WHILE;
-  SELECT caracteres;
+  RETURN caracteres;
 END //
 DELIMITER ;
   
-CALL alfabetico('Hola128a6c5',@carac);
+SELECT alfabetico('Hola128a6c5');
 
 
 
